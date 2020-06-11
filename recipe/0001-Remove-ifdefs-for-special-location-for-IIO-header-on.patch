@@ -1,8 +1,8 @@
-From c333e96b9d5f03c6664eda855c78468eb5339e9c Mon Sep 17 00:00:00 2001
+From 0b2ab8790bd1aea3419e15d17b20f9ee3eab92bf Mon Sep 17 00:00:00 2001
 From: Ryan Volz <rvolz@mit.edu>
 Date: Thu, 21 May 2020 12:35:07 -0400
-Subject: [PATCH] Remove ifdefs for special location for IIO header on OSX, not
- necessary.
+Subject: [PATCH 1/2] Remove ifdefs for special location for IIO header on OSX,
+ not necessary.
 
 ---
  test/auto_rate_test_hw.c  | 4 ----
