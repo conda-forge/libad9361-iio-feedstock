@@ -13,7 +13,7 @@ source:
     - 0001-Make-Framework-creation-optional-through-OSX_FRAMEWO.patch  # [osx]
 
 build:
-  number: 2
+  number: 3
   run_exports:
     - {{ pin_subpackage('libad9361-iio', max_pin='x.x') }}
 
@@ -21,9 +21,7 @@ requirements:
   build:
     - {{ compiler('c') }}
     - cmake
-    # libudev is on its own in CentOS 6, packaged with systemd in CentOS 7
     - {{ cdt('libudev-devel') }}  # [linux and cdt_name=='cos6']
-    - {{ cdt('systemd-devel') }}  # [linux and cdt_name=='cos7']
     - make  # [not win]
     - ninja  # [win]
   host:

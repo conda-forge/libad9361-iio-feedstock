@@ -1,10 +1,10 @@
 c_compiler:
 - vs2017
 channel_sources:
-- conda-forge,defaults
+- conda-forge
 channel_targets:
 - conda-forge main
 libiio:
-- '0.21'
+- '0'
 target_platform:
 - win-64
