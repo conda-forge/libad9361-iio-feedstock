@@ -5,6 +5,6 @@ channel_sources:
 channel_targets:
 - conda-forge main
 libiio:
-- '0.21'
+- '0.23'
 target_platform:
 - win-64
