@@ -91,6 +91,8 @@ Current release info
 | Name | Downloads | Version | Platforms |
 | --- | --- | --- | --- |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-libad9361--iio-green.svg)](https://anaconda.org/conda-forge/libad9361-iio) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libad9361-iio.svg)](https://anaconda.org/conda-forge/libad9361-iio) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libad9361-iio.svg)](https://anaconda.org/conda-forge/libad9361-iio) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libad9361-iio.svg)](https://anaconda.org/conda-forge/libad9361-iio) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-libad9361--iio--c-green.svg)](https://anaconda.org/conda-forge/libad9361-iio-c) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/libad9361-iio-c.svg)](https://anaconda.org/conda-forge/libad9361-iio-c) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/libad9361-iio-c.svg)](https://anaconda.org/conda-forge/libad9361-iio-c) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/libad9361-iio-c.svg)](https://anaconda.org/conda-forge/libad9361-iio-c) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-pylibad9361-green.svg)](https://anaconda.org/conda-forge/pylibad9361) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/pylibad9361.svg)](https://anaconda.org/conda-forge/pylibad9361) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/pylibad9361.svg)](https://anaconda.org/conda-forge/pylibad9361) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/pylibad9361.svg)](https://anaconda.org/conda-forge/pylibad9361) |
 
 Installing libad9361-iio
 ========================
@@ -102,16 +104,16 @@ conda config --add channels conda-forge
 conda config --set channel_priority strict
 ```
 
-Once the `conda-forge` channel has been enabled, `libad9361-iio` can be installed with `conda`:
+Once the `conda-forge` channel has been enabled, `libad9361-iio, libad9361-iio-c, pylibad9361` can be installed with `conda`:
 
 ```
-conda install libad9361-iio
+conda install libad9361-iio libad9361-iio-c pylibad9361
 ```
 
 or with `mamba`:
 
 ```
-mamba install libad9361-iio
+mamba install libad9361-iio libad9361-iio-c pylibad9361
 ```
 
 It is possible to list all of the versions of `libad9361-iio` available on your platform with `conda`:
