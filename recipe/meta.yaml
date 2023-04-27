@@ -10,7 +10,7 @@ source:
   sha256: 1dd6d02f7fe142d4cade08356d8033e933b21908b1227fb976d3569a182d56c5
   patches:
     - 0001-Remove-ifdefs-for-special-location-for-IIO-header-on.patch  # [osx]
-    - 0001-Make-Framework-creation-optional-through-OSX_FRAMEWO.patch  # [osx]
+    - 0002-Make-Framework-creation-optional-through-OSX_FRAMEWO.patch  # [osx]
 
 build:
   number: {{ build }}
