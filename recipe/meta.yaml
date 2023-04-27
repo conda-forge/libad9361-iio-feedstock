@@ -68,7 +68,7 @@ outputs:
         - pylibiio
         - python
     test:
-      import:
+      imports:
         - ad9361
 
   - name: libad9361-iio
