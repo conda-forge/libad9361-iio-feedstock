@@ -81,12 +81,9 @@ outputs:
         - {{ pin_subpackage('libad9361-iio-c', max_pin='x') }}
     requirements:
       run:
-        - libad9361-iio-c {{ version }} *_{{ build }}
+        - {{ pin_subpackage('libad9361-iio-c', max_pin='x') }}
         - pylibad9361 {{ version }} py_{{ build }}
     test:
-      commands:
-        - test -f $PREFIX/include/ad9361.h  # [not win]
-        - if not exist %PREFIX%\\Library\\include\\ad9361.h exit 1  # [win]
       imports:
         - ad9361
 
