@@ -47,6 +47,7 @@ outputs:
     script: install_pylibad9361.bat  # [win]
     script: install_pylibad9361.sh  # [not win]
     build:
+      skip: true  # [not linux64]
       string: py_{{ build }}
       noarch: python
     requirements:
@@ -73,12 +74,15 @@ outputs:
 
   - name: libad9361-iio
     build:
+      skip: true  # [not linux64]
+      string: {{ build }}
+      noarch: generic
       run_exports:
         - {{ pin_subpackage('libad9361-iio-c', max_pin='x') }}
     requirements:
       run:
-        - {{ pin_subpackage('libad9361-iio-c', exact=True) }}
-        - {{ pin_subpackage('pylibad9361', exact=True) }}
+        - libad9361-iio-c {{ version }} *_{{ build }}
+        - pylibad9361 {{ version }} py_{{ build }}
     test:
       commands:
         - test -f $PREFIX/include/ad9361.h  # [not win]
