@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://github.com/analogdevicesinc/libad9361-iio/archive/v{{ version }}.tar.gz
-  sha256: 1dd6d02f7fe142d4cade08356d8033e933b21908b1227fb976d3569a182d56c5
+  sha256: 00eea5b36635f68cc50a6bd02a1916aab8add9fde1ed0da6f10eaceaed3b2273
   patches:
     - 0001-Remove-ifdefs-for-special-location-for-IIO-header-on.patch  # [osx]
     - 0002-Make-Framework-creation-optional-through-OSX_FRAMEWO.patch  # [osx]
