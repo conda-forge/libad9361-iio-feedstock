@@ -14,6 +14,8 @@ cmake -G "Ninja" ^
     -DCMAKE_PREFIX_PATH:PATH="%LIBRARY_PREFIX%" ^
     -DBUILD_SHARED_LIBS=ON ^
     -DLIBIIO_LIBRARIES:FILEPATH="%LIBRARY_PREFIX%\\lib\\libiio.lib" ^
+    -DMATLAB_BINDINGS=ON ^
+    -DPYTHON_BINDINGS=OFF ^
     -DWITH_DOC=OFF ^
     ..
 if errorlevel 1 exit 1
