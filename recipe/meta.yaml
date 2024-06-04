@@ -1,44 +1,92 @@
-{% set name = "libad9361-iio" %}
-{% set version = "0.2" %}
+{% set version = "0.3" %}
+{% set build = 0 %}
 
 package:
-  name: {{ name|lower }}
+  name: libad9361-iio-split
   version: {{ version }}
 
 source:
-  url: https://github.com/analogdevicesinc/{{ name }}/archive/v{{ version }}.tar.gz
-  sha256: f0d935eb7f70fde8596d98e9eb1f311b408b87662fc1fff45ae3ed455697b747
+  url: https://github.com/analogdevicesinc/libad9361-iio/archive/v{{ version }}.tar.gz
+  sha256: 1dc35dd997e1938a97489fa1f349ee16889f9de8901a2c7af46184468dc90598
   patches:
     - 0001-Remove-ifdefs-for-special-location-for-IIO-header-on.patch  # [osx]
-    - 0001-Make-Framework-creation-optional-through-OSX_FRAMEWO.patch  # [osx]
+    - 0002-Make-Framework-creation-optional-through-OSX_FRAMEWO.patch  # [osx]
 
 build:
-  number: 3
-  run_exports:
-    - {{ pin_subpackage('libad9361-iio', max_pin='x.x') }}
+  number: {{ build }}
 
-requirements:
-  build:
-    - {{ compiler('c') }}
-    - cmake
-    - {{ cdt('libudev-devel') }}  # [linux and cdt_name=='cos6']
-    - make  # [not win]
-    - ninja  # [win]
-  host:
-    - libiio
+outputs:
+  - name: libad9361-iio-c
+    script: install_libad9361.bat  # [win]
+    script: install_libad9361.sh  # [not win]
+    build:
+      run_exports:
+        - {{ pin_subpackage('libad9361-iio-c', max_pin='x') }}
+    requirements:
+      build:
+        - {{ compiler('c') }}
+        - {{ stdlib('c') }}
+        - cmake
+        - make  # [not win]
+        - ninja  # [win]
+      host:
+        - libiio
+    test:
+      commands:
+        # verify that headers get installed
+        - test -f $PREFIX/include/ad9361.h  # [not win]
+        - test -f $PREFIX/include/ad9361-wrapper.h  # [not win]
+        - if not exist %PREFIX%\\Library\\include\\ad9361.h exit 1  # [win]
+        - if not exist %PREFIX%\\Library\\include\\ad9361-wrapper.h exit 1  # [win]
 
-test:
-  commands:
-    # verify that headers get installed
-    - test -f $PREFIX/include/ad9361.h  # [not win]
-    - test -f $PREFIX/include/ad9361-wrapper.h  # [not win]
-    - if not exist %PREFIX%\\Library\\include\\ad9361.h exit 1  # [win]
-    - if not exist %PREFIX%\\Library\\include\\ad9361-wrapper.h exit 1  # [win]
+        # verify that libraries get installed
+        - test -f $PREFIX/lib/libad9361${SHLIB_EXT}  # [not win]
+        - if not exist %PREFIX%\\Library\\bin\\libad9361.dll exit 1  # [win]
+        - if not exist %PREFIX%\\Library\\lib\\libad9361.lib exit 1  # [win]
 
-    # verify that libraries get installed
-    - test -f $PREFIX/lib/libad9361${SHLIB_EXT}  # [not win]
-    - if not exist %PREFIX%\\Library\\bin\\libad9361.dll exit 1  # [win]
-    - if not exist %PREFIX%\\Library\\lib\\libad9361.lib exit 1  # [win]
+  - name: pylibad9361
+    script: install_pylibad9361.bat  # [win]
+    script: install_pylibad9361.sh  # [not win]
+    build:
+      skip: true  # [not linux64]
+      string: py_{{ build }}
+      noarch: python
+    requirements:
+      build:
+        - cmake
+        - make  # [not win]
+        - ninja  # [win]
+        # cross-compilation dependencies
+        - python >=3.6                        # [build_platform != target_platform]
+        - cross-python_{{ target_platform }}  # [build_platform != target_platform]
+      host:
+        - {{ pin_subpackage('libad9361-iio-c', exact=True) }}
+        - pip
+        - pylibiio
+        - python >=3.6
+        - setuptools
+      run:
+        - {{ pin_subpackage('libad9361-iio-c', max_pin='x') }}
+        - pylibiio
+        - python
+    test:
+      imports:
+        - ad9361
+
+  - name: libad9361-iio
+    build:
+      skip: true  # [not linux64]
+      string: {{ build }}
+      noarch: generic
+      run_exports:
+        - {{ pin_subpackage('libad9361-iio-c', max_pin='x') }}
+    requirements:
+      run:
+        - {{ pin_subpackage('libad9361-iio-c', max_pin='x') }}
+        - pylibad9361 {{ version }} py_{{ build }}
+    test:
+      imports:
+        - ad9361
 
 about:
   home: https://github.com/analogdevicesinc/libad9361-iio
@@ -54,5 +102,6 @@ about:
   dev_url: https://github.com/analogdevicesinc/libad9361-iio
 
 extra:
+  feedstock-name: libad9361-iio
   recipe-maintainers:
     - ryanvolz
