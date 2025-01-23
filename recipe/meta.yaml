@@ -1,5 +1,9 @@
 {% set version = "0.3" %}
-{% set build = 0 %}
+{% set build = 1 %}
+# recipe parsing requires python_min to be defined even though it is not used
+# except on linux-64, and as a result it is not defined for other platforms
+# this ensures it is evaluated and defined for all platforms
+{% set python_min = python_min %}
 
 package:
   name: libad9361-iio-split
@@ -57,26 +61,28 @@ outputs:
         - make  # [not win]
         - ninja  # [win]
         # cross-compilation dependencies
-        - python >=3.6                        # [build_platform != target_platform]
+        - python >={{ python_min }}           # [build_platform != target_platform]
         - cross-python_{{ target_platform }}  # [build_platform != target_platform]
       host:
         - {{ pin_subpackage('libad9361-iio-c', exact=True) }}
         - pip
         - pylibiio
-        - python >=3.6
+        - python {{ python_min }}
         - setuptools
       run:
         - {{ pin_subpackage('libad9361-iio-c', max_pin='x') }}
         - pylibiio
-        - python
+        - python >={{ python_min }}
     test:
+      requires:
+        - python {{ python_min }}
       imports:
         - ad9361
 
   - name: libad9361-iio
     build:
       skip: true  # [not linux64]
-      string: {{ build }}
+      string: "{{ build }}"
       noarch: generic
       run_exports:
         - {{ pin_subpackage('libad9361-iio-c', max_pin='x') }}
