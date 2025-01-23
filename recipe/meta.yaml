@@ -82,7 +82,7 @@ outputs:
   - name: libad9361-iio
     build:
       skip: true  # [not linux64]
-      string: {{ build }}
+      string: "{{ build }}"
       noarch: generic
       run_exports:
         - {{ pin_subpackage('libad9361-iio-c', max_pin='x') }}
