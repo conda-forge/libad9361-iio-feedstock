@@ -1,5 +1,5 @@
-{% set version = "0.3" %}
-{% set build = 1 %}
+{% set version = "0.4.0" %}
+{% set build = 0 %}
 # recipe parsing requires python_min to be defined even though it is not used
 # except on linux-64, and as a result it is not defined for other platforms
 # this ensures it is evaluated and defined for all platforms
@@ -11,7 +11,7 @@ package:
 
 source:
   url: https://github.com/analogdevicesinc/libad9361-iio/archive/v{{ version }}.tar.gz
-  sha256: 1dc35dd997e1938a97489fa1f349ee16889f9de8901a2c7af46184468dc90598
+  sha256: f4976a1317a0b7cf84727d068be5a52c070539ca7301f0160b0677a429538d87
   patches:
     - 0001-Remove-ifdefs-for-special-location-for-IIO-header-on.patch  # [osx]
     - 0002-Make-Framework-creation-optional-through-OSX_FRAMEWO.patch  # [osx]
